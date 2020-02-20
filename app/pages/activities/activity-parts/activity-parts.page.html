@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-menu-button menu="prf_menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Deelnemers</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card *ngIf="information">
+        <ion-card-header>
+            <ion-card-title>
+                {{ information.event_desc }}
+            </ion-card-title>
+        <ion-card-subtitle>
+        {{ information.date }}
+        </ion-card-subtitle>
+        </ion-card-header>
+     </ion-card>
+
+    
+    <form *ngIf="validations_form" [formGroup]="validations_form"  (ngSubmit)="onSubmit(validations_form.value)">
+
+        <ion-item *ngFor="let part of participants">
+            <ion-label position="floating" color="primary">{{ part.desc }}</ion-label>
+            <ion-input type="number" formControlName="{{ part.id }}"></ion-input>
+        </ion-item>
+        
+     <ion-button color="primary" class="submit-btn" expand="full" type="submit" [disabled]="!validations_form.valid">Verder >></ion-button>
+  </form>
+
+    
+</ion-content>

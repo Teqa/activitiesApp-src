@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="end">
+      <ion-menu-button menu="prf_menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Activiteiten zoeken demo</ion-title>
+  </ion-toolbar>
+</ion-header>
+ 
+<ion-content>
+ 
+  <ion-searchbar [(ngModel)]="searchTerm" (ionChange)="searchChanged()"></ion-searchbar>
+ 
+  <ion-item>
+    <ion-label>Selecteer locatie</ion-label>
+    <ion-select [(ngModel)]="type" (ionChange)="searchChanged()">
+      <ion-select-option value="">Alles</ion-select-option>
+      <ion-select-option value="movie">Amsterdam</ion-select-option>
+      <ion-select-option value="series">Den Haag</ion-select-option>
+      <ion-select-option value="episode">Utrecht</ion-select-option>
+    </ion-select>
+  </ion-item>
+         
+  <ion-grid>
+   <ion-row>
+     <ion-col size-lg="4" size-md="6" size-xs="12" *ngFor="let item of (results | async)">
+         <ion-card>
+         <ion-item button routerLink="/tab-nav/activity-details/{{item.event_id}}">
+           <ion-avatar item-start>
+             <img src="{{appurl}}{{ item.DEFAULT_IMAGE }}" *ngIf="item.DEFAULT_IMAGE != 'N/A'">
+           </ion-avatar>
+           <ion-label  class="ion-text-wrap">
+                <h2>{{ item.EVENT_DESC }}</h2>
+                <div>{{ item.EVENT_DATE }} </div>
+                <div><ion-icon name="clock" slot="start"></ion-icon>{{ item.EVENT_FROMTIME }} - {{ item.EVENT_TILLTIME }}</div>
+                <div><ion-icon name="planet" slot="start"></ion-icon> {{ item.EVENT_CUSTOM02 }}</div>
+                <div><ion-icon name="globe" slot="start"></ion-icon> {{ item.REX_DESC }}</div>
+              </ion-label>
+                <ion-badge color="danger" *ngIf="item.NUMBER_OF_FREE == 0">Vol</ion-badge>
+                <ion-badge color="warning" *ngIf="item.NUMBER_OF_FREE > 0 && item.NUMBER_OF_FREE < 4">Bijna vol</ion-badge>
+                <ion-badge color="success" *ngIf="item.NUMBER_OF_FREE >= 4">Vrij</ion-badge>
+         </ion-item>
+         </ion-card>
+     </ion-col>
+   </ion-row>
+ </ion-grid>
+  
+  <!--
+  <ion-list>
+ 
+    <ion-item button *ngFor="let item of (results | async)" routerLink="/tab-nav/activity-details/{{item.event_id}}">
+      <ion-avatar slot="start">
+        <img src="{{appurl}}{{ item.DEFAULT_IMAGE }}" *ngIf="item.DEFAULT_IMAGE != 'N/A'">
+      </ion-avatar>
+ 
+      <ion-label  class="ion-text-wrap">
+        <h3>{{ item.EVENT_DESC }}</h3>
+        {{ item.EVENT_DATE }} <br />
+        {{ item.EVENT_FROMTIME }} - {{ item.EVENT_TILLTIME }}
+      </ion-label>
+        
+        <ion-badge color="danger" *ngIf="item.NUMBER_OF_FREE == 0">Vol</ion-badge>
+        <ion-badge color="warning" *ngIf="item.NUMBER_OF_FREE > 0 && item.NUMBER_OF_FREE < 4">Bijna vol</ion-badge>
+        <ion-badge color="success" *ngIf="item.NUMBER_OF_FREE >= 4">Vrij</ion-badge>
+ 
+    </ion-item>
+ 
+  </ion-list>
+ 
+</ion-content>
+  -->

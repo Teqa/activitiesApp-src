@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-menu-button menu="prf_menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-title *ngIf="information">{{ information.object_desc }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+ 
+<ion-content class="ion-padding">
+ 
+  <ion-card *ngIf="information">
+    <ion-card-header>
+      <ion-card-title>
+        {{ information.event_desc }}
+      </ion-card-title>
+      <ion-card-subtitle>
+        {{ information.date }}
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content class="ion-text-center">
+      <img src="{{appurl}}{{information.image}}" class="info-img">
+      <div>{{ information.long_memo }}</div>
+ 
+      <ion-item lines="none">
+        <ion-icon name="clock" slot="start"></ion-icon>
+        <ion-label class="ion-text-wrap">{{ information.fromtime }} - {{ information.tiltime }}</ion-label>
+      </ion-item>
+      
+      <ion-item lines="none">
+        <ion-icon name="contacts" slot="start"></ion-icon>
+        <ion-label>{{ information.Free }} van de {{ information.amount }} plaatsen vrij</ion-label>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-icon name="globe" slot="start"></ion-icon>
+        <ion-label class="ion-text-wrap">{{ information.location }}</ion-label>
+      </ion-item>
+      
+      <!-- Taal  -->
+      <ion-item lines="none">
+        <ion-icon name="planet" slot="start"></ion-icon>
+        <ion-label class="ion-text-wrap">{{ information.custom02 }}</ion-label>
+      </ion-item>
+      
+      <!-- Gids -->
+      <ion-item lines="none" *ngIf="information.custom01 != ''">
+        <ion-icon name="walk" slot="start"></ion-icon>
+        <ion-label class="ion-text-wrap">{{ information.custom01 }}</ion-label>
+      </ion-item>      
+      
+      <!-- Warning message -->
+      <ion-item color="warning" *ngIf="information.custom03 != ''">
+        <ion-label>
+          <ion-icon name="alert-circle-outline"></ion-icon>
+          <ion-label class="ion-text-wrap">{{ information.custom03 }}</ion-label>
+        </ion-label>
+      </ion-item>
+      
+      <ion-button shape="round" color="success" *ngIf="information.Free > 0 && blocked == false" routerLink="/tab-nav/activity-parts">
+        Maak reservering
+       </ion-button>
+      
+      <ion-badge color="success" *ngIf="blocked == true">Al geboekt</ion-badge>
+            
+    </ion-card-content>
+  </ion-card>
+  
+</ion-content>

@@ -1,0 +1,67 @@
+<ion-menu side="end" menuId="prf_menu" contentId="main">
+  <ion-header>
+    <ion-toolbar color="tertiary">
+      <ion-title>Gebruikersmenu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+      
+      <!-- logged in -->
+      <ion-list id="inbox-list" *ngIf="loggedin">
+          <ion-list-header *ngIf="true">Gebruikersnaam</ion-list-header>
+          <ion-label *ngIf="true">{{ user.username }}</ion-label>
+
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of pagesLoggedIn; let i = index">
+            <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false"  *ngIf="p.url">
+                <ion-icon slot="start" name="{{ p.icon }}"></ion-icon>
+              <ion-label>{{ p.title }}</ion-label>
+            </ion-item>
+              
+            <ion-item (click)="clickEvent(p.action)" lines="none" detail="false"  *ngIf="p.action">
+              <ion-icon slot="start" name="{{ p.icon }}"></ion-icon>
+              <ion-label>{{ p.title }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+       </ion-list>
+      <!-- logged in -->
+      
+      <!-- logged out -->
+      <ion-list id="inbox-list" *ngIf="loggedin == false">
+
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of pagesLoggedOut; let i = index">
+            <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false"  *ngIf="p.url">
+                <ion-icon slot="start" name="{{ p.icon }}"></ion-icon>
+              <ion-label>{{ p.title }}</ion-label>
+            </ion-item>
+              
+            <ion-item (click)="clickEvent(p.action)" lines="none" detail="false"  *ngIf="p.action">
+              <ion-icon slot="start" name="{{ p.icon }}"></ion-icon>
+              <ion-label>{{ p.title }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+       </ion-list>
+      <!-- logged out -->
+      
+  </ion-content>
+</ion-menu>
+
+<ion-router-outlet id="main"></ion-router-outlet>
+
+<!-- tabs -->
+<ion-content>
+
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button tab="home">
+        <ion-icon name="home"></ion-icon>
+        <ion-label>Home</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="about">
+        <ion-icon name="list"></ion-icon>
+        <ion-label>About</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+
+</ion-content>

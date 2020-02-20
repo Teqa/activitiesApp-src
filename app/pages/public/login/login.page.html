@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="end">
+      <ion-menu-button menu="prf_menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Inloggen</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" *ngIf="loggedin">
+    <div>Ingelogd met {{ user.username }}</div>
+    <ion-button (click)="logout()" expand="block">Uitloggen</ion-button>
+</ion-content>
+
+<ion-content *ngIf="loggedin == false">
+  <form [formGroup]="loginForm" novalidate>
+    <ion-item>
+      <ion-label stacked>E-mail</ion-label>
+      <ion-input
+        #email
+        formControlName="email"
+        type="email"
+        placeholder="Je e-mail adres"
+        [class.invalid]="!loginForm.controls.email.valid &&
+        loginForm.controls.email.dirty"
+      ></ion-input>
+    </ion-item>
+    <ion-item
+      class="error-message"
+      *ngIf="!loginForm.controls.email.valid  &&
+      loginForm.controls.email.dirty"
+    >
+      <p>Geef een geldig e-mail adres op</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Wachtwoord</ion-label>
+      <ion-input
+        #password
+        formControlName="password"
+        type="password"
+        placeholder="Je wachtwoord"
+        [class.invalid]="!loginForm.controls.password.valid &&
+          loginForm.controls.password.dirty"
+      ></ion-input>
+    </ion-item>
+    <ion-item
+      class="error-message"
+      *ngIf="!loginForm.controls.password.valid  &&
+      loginForm.controls.password.dirty"
+    >
+      <p>Het wachtwoord moet minimaal 6 karakters bevatten</p>
+    </ion-item>
+      
+    <ion-button color="primary" class="submit-btn" expand="full" (click)="login()" [disabled]="!loginForm.valid">Login</ion-button>
+
+  </form>
+    
+  <!--<ion-button color="secondary" class="submit-btn" (click)="goToResetPassword()">Ik ben mijn wachtwoord vergeten</ion-button>-->
+  
+  <ion-button color="secondary" class="submit-btn" (click)="createAccount()">Registreer</ion-button>
+  
+</ion-content>

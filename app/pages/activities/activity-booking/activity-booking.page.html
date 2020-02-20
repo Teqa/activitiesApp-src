@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+        <ion-button routerLink="/activities/">
+            <ion-icon slot="icon-only" name="arrow-round-back" ></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-menu-button menu="prf_menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Reservering</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card *ngIf="information">
+        <ion-card-header>
+            <ion-card-title>
+                {{ information.event_desc }}
+            </ion-card-title>
+        <ion-card-subtitle>
+        {{ information.date }}
+        </ion-card-subtitle>
+        </ion-card-header>
+        
+        <ion-card-content class="ion-text-center">
+            
+            <ion-badge color="danger" *ngIf="results.status == false">Error</ion-badge>
+            
+            <ion-badge color="success" *ngIf="results.booking_id">Reservering: {{results.booking_id}}</ion-badge>
+            
+            <ng-container *ngFor="let message of results.messages">
+                <div class="error-message">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ message }}
+                </div>
+            </ng-container>
+        </ion-card-content>
+     </ion-card>
+</ion-content>    
